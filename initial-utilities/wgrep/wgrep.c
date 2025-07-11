@@ -26,6 +26,25 @@ int main(int argc, char* argv[argc + 1]) {
   exit(0);
  }
 
+ for (int i = 2; i < argc; ++i) {
+
+  FILE* instream = fopen(argv[i], "r");
+
+  if (instream) {
+
+   while((linelen = getline(&line, &linecap, instream)) > 0) {
+     if (strstr(line, pattern)) {
+      fputs(line, stdout);
+     }
+   }
+    fclose(instream);
+  } else {
+   printf("wgrep: cannot open file\n");
+   exit(1);
+  }
+
+ }
+
  
  return 0;
 }
